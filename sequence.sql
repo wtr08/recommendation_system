@@ -11,7 +11,7 @@ Rating text,
 Runtime text,
 Userscore text,
 Metascore text,
-scoreCounts Text,
+scoreCounts text
 );
 
 \copy movies FROM '/home/pi/RSL/moviesFromMetacritic.csv' delimiter ';' header;
