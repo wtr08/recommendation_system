@@ -14,7 +14,7 @@ Metascore text,
 scoreCounts text
 );
 
-\copy movies FROM '/home/pi/RSL/moviesFromMetacritic.csv' delimiter ';' header;
+\copy movies FROM '/home/pi/RSL/moviesFromMetacritic.csv' delimiter ';' csv header;
 
 ALTER TABLE movies ADD lexemesSummary tsvector;
 ALTER TABLE movies ADD lexemesTitle tsvector;
@@ -34,7 +34,7 @@ ALTER TABLE movies ADD rank float4;
 UPDATE movies SET RANK = ts_rank(lexemesStarring, plainto_tsquery((SELECT Starring FROM movies WHERE url='i-am-legend') ));
 DROP TABLE recommendationsBasedOnStarringField;
 CREATE Table recommendationsBasedOnStarringField AS SELECT url, rank FROM movies WHERE rank > 0.02 ORDER BY rank DESC LIMIT 50;
-\copy (SELECT * FROM recommendationsBasedOnTitleField) to '/home/pi/RSL/starring/i-am-legend.csv' WITH csv;
+\copy (SELECT * FROM recommendationsBasedOnStarringField) to '/home/pi/RSL/starring/i-am-legend.csv' WITH csv;
 
 UPDATE movies SET RANK = ts_rank(lexemesStarring, plainto_tsquery((SELECT Starring FROM movies WHERE url='the-wolf-of-wall-street') ));
 DROP TABLE recommendationsBasedOnStarringField;
