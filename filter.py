@@ -1,1 +1,1 @@
-print("whats up");
+print("whfewfeats up");
